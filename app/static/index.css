@@ -162,6 +162,8 @@ label {
 }
 .search_results {
     margin-top: 10px;
+    max-height: 200px;
+    overflow: auto;
 }
 .search_results span {
     border-radius: 5px;
