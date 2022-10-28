@@ -54,8 +54,14 @@ def fill_values(request):
             obj.secondary_focus, created = Focus.objects.get_or_create(name=sheet.cell_value(i, 8))
 
 
+        if sheet.cell_value(i, 9) == "":
+            obj.date_began = sheet.cell_value(i, 9)
+        else:
+            try:
+                obj.date_began = int(sheet.cell_value(i, 9))
+            except Exception as e:
+                obj.date_began = sheet.cell_value(i, 9)
 
-        obj.date_began = sheet.cell_value(i, 9)
         obj.mailing_address = sheet.cell_value(i, 10)
         obj.street_address = sheet.cell_value(i, 11)
         obj.postal_code = sheet.cell_value(i, 12)
@@ -70,15 +76,15 @@ def fill_values(request):
                 obj.species.add(Species.objects.get(name=sheet.cell_value(0,j)))
         obj.save()
 
-        if i> 100:
-            return HttpResponse("Done")
+        # if i> 100:
+        #     return HttpResponse("Done")
 
 
     return HttpResponse("Done")
 
 
 def startapp(request):
-    return render(request,'index.html',{})
+    return render(request,'index.html',)
 
 
 class HomeCountrySerializer(serializers.ModelSerializer):
